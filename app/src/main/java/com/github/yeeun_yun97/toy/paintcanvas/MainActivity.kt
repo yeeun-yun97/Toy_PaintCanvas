@@ -49,7 +49,11 @@ class MainActivity : AppCompatActivity() {
             0, 80, 300, 300
         )
 
-        this.slider.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser -> setRadius(value) })
+        this.slider.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
+            setRadius(
+                value
+            )
+        })
         this.imageView.setImageBitmap(bitmap)
         this.nextButton.setOnClickListener { intentNext() }
         this.refreshButton.setOnClickListener { initRandomLine() }
@@ -62,7 +66,8 @@ class MainActivity : AppCompatActivity() {
         if (event is MotionEvent) {
             if (event.action == ACTION_DOWN) {
                 val point = paintTool.screenToCanvas(Point(event.x.toInt(), event.y.toInt()))
-                drawEraser(point.x.toFloat(), point.y.toFloat(), eraserRadius)
+                if (point.x != -1 && point.y != -1)
+                    drawEraser(point.x.toFloat(), point.y.toFloat(), eraserRadius)
             }
         }
         return super.onTouchEvent(event)

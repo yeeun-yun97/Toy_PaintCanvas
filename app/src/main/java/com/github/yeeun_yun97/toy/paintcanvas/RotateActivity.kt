@@ -26,7 +26,7 @@ class RotateActivity : AppCompatActivity() {
     private val originImage = Rect(100, 100, 100, 100, 1F)
     private var image: Rect = originImage.copy()
     private lateinit var bitmap: Bitmap
-    private val originPivot = Point(150,150)
+    private val originPivot = Point(150, 150)
     private var pivot: Point = originPivot
     private var rotateDegree: Float = 0F
 
@@ -64,9 +64,11 @@ class RotateActivity : AppCompatActivity() {
         if (event is MotionEvent) {
             if (event.action == MotionEvent.ACTION_DOWN) {
                 val point = paintTool.screenToCanvas(Point(event.x.toInt(), event.y.toInt()))
-                this.pivot = point
-                this.rotateDegree = 0F
-                refresh()
+                if (point.x != -1 && point.y != -1) {
+                    this.pivot = point
+                    this.rotateDegree = 0F
+                    refresh()
+                }
             }
         }
         return super.onTouchEvent(event)
@@ -108,7 +110,7 @@ class RotateActivity : AppCompatActivity() {
 
     private fun paintRotatedImage(bitmap: Bitmap, image: Rect, degree: Float) {
         val matrix = Matrix()
-        matrix.preTranslate(100F,100F)
+        matrix.preTranslate(100F, 100F)
         matrix.setRotate(degree, pivot.x.toFloat(), pivot.y.toFloat())
 
         matrix.preScale(1.0F, 1.0F)

@@ -61,7 +61,13 @@ class MoveActivity : AppCompatActivity() {
                 MotionEvent.ACTION_DOWN -> {
                     val point =
                         paintTool.screenToCanvas(Point(event.x.roundToInt(), event.y.roundToInt()))
-                    if (paintTool.isOnRect(image, point.x.toFloat(), point.y.toFloat())) {
+                    if (point.x != -1 && point.y != -1 &&
+                        paintTool.isOnRect(
+                            image,
+                            point.x.toFloat(),
+                            point.y.toFloat()
+                        )
+                    ) {
                         prevX = event.x
                         prevY = event.y
                     }

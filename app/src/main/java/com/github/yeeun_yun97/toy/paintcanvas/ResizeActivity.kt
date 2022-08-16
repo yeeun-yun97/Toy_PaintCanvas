@@ -64,8 +64,10 @@ class ResizeActivity : AppCompatActivity() {
         if (event is MotionEvent) {
             if (event.action == MotionEvent.ACTION_DOWN) {
                 val point = paintTool.screenToCanvas(Point(event.x.toInt(), event.y.toInt()))
-                this.pivot = point
-                refresh()
+                if (point.x != -1 && point.y != -1) {
+                    this.pivot = point
+                    refresh()
+                }
             }
         }
         return super.onTouchEvent(event)
